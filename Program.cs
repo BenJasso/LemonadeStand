@@ -13,7 +13,7 @@ namespace LemonadeStand_3DayStarter
         {
             Game lemonadeGame = new Game();
             lemonadeGame.RunGame();
-            lemonadeGame.CreatePlayer();
+            
         }
            
        

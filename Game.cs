@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand_3DayStarter
 {
-    public class Game
+     class Game
     {
         //member variables
         public int numberOfDays;
+        public Player newPlayer;
+        public List<double> Lemons;
+        public List<double> Cups;
+        public List<double> IceCubes;
+        public List<double> SugarCubes;
+
+        
+
 
         //constructor
         public Game()
@@ -24,6 +32,7 @@ namespace LemonadeStand_3DayStarter
             Console.ReadLine();
             CreatePlayer();
             DecideNumberOfDays();
+            
         }
         public void DisplayRules()
         {
@@ -33,13 +42,43 @@ namespace LemonadeStand_3DayStarter
         public void CreatePlayer()
         {
             Console.WriteLine("Player, enter your name:");
-            Player newPlayer = new Player(Console.ReadLine());
+            newPlayer = new Player(Console.ReadLine());
         }
 
         public void DecideNumberOfDays()
         {
-            Console.WriteLine("How many days would you like to run your stand for?\nType 7 for 7 days.\nType 14 for 14 days.\nType 30 for 30 days.");
+            Console.WriteLine($"{newPlayer.name}, How many days would you like to run your stand for?\nType 7 for 7 days.\nType 14 for 14 days.\nType 30 for 30 days.");
             numberOfDays = Convert.ToInt32(Console.ReadLine());
+            
+            
+        }
+        public void DisplayAmountOfMoney()
+        {
+            Console.WriteLine($"Ben you have ${newPlayer.wallet.Money} and \n");
+        }
+
+        public void DisplayInventory()
+        {
+            Console.WriteLine($"Lemons:{Lemons.Count}\nCups:{Cups.Count}\nIce Cubes:{IceCubes.Count}\nSugar Cubes:{SugarCubes.Count}");
+        }
+
+        public void PurchasingMenu()
+        {
+            DisplayAmountOfMoney();
+            DisplayInventory();
+            Console.WriteLine("Would you like to purchase any items?\n1)Yes\n2)No");
+            int choiceToPurchase = Convert.ToInt32(Console.ReadLine());
+            while(choiceToPurchase == 1)
+            {
+                Console.WriteLine("Type 1 to purchase more Lemons\nType 2 to purchase more Cups\nType 3 to purchase more Ice Cubes\nType 4 to purchase more Sugar Cubes\nType 5 to End Purchases");
+                int choiceOfPurchase = Convert.ToInt32(Console.ReadLine());
+                if(choiceOfPurchase == 5)
+                {
+                    break;
+                }
+
+            }
+
         }
     }
 }
