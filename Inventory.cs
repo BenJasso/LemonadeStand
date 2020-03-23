@@ -10,7 +10,7 @@ namespace LemonadeStand_3DayStarter
     {
         // member variables (HAS A)
         public List<Lemon> lemons;
-        public List<SugarCube> sugarCubes;
+        public List<CupOfSugar> sugarCubes;
         public List<IceCube> iceCubes;
         public List<Cup> cups;
 
@@ -18,7 +18,7 @@ namespace LemonadeStand_3DayStarter
         public Inventory()
         {
             lemons = new List<Lemon>();
-            sugarCubes = new List<SugarCube>();
+            sugarCubes = new List<CupOfSugar>();
             iceCubes = new List<IceCube>();
             cups = new List<Cup>();
         }
@@ -37,7 +37,7 @@ namespace LemonadeStand_3DayStarter
         {
             for(int i = 0; i < numberOfSugarCubes; i++)
             {
-                SugarCube sugarCube = new SugarCube();
+                CupOfSugar sugarCube = new CupOfSugar();
                 sugarCubes.Add(sugarCube);
             }
         }
