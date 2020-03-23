@@ -10,13 +10,17 @@ namespace LemonadeStand_3DayStarter
     {
         //member variables
         public int numberOfDays;
+        public Lemon lemon = new Lemon();
         public Player newPlayer;
-        public List<double> Lemons;
-        public List<double> Cups;
-        public List<double> IceCubes;
-        public List<double> SugarCubes;
+        public List<Lemon> Lemons = new List<Lemon>();
+        public List<Cup> Cups = new List<Cup>();
+        public List<IceCube> IceCubes = new List<IceCube>();
+        public List<SugarCube> SugarCubes = new List<SugarCube>();
+        public Weather daysWeather = new Weather();
+        public List<string> lemonPackages = new List<string> { "10 Lemons: $0.88", "30 Lemons:$2.17", "75 Lemons: $4.02" };
 
-        
+
+
 
 
         //constructor
@@ -32,7 +36,15 @@ namespace LemonadeStand_3DayStarter
             Console.ReadLine();
             CreatePlayer();
             DecideNumberOfDays();
-            
+            PurchasingMenu();
+           
+
+
+        }
+
+        public void DisplayWeather()
+        {
+            Console.WriteLine($"Degrees:{daysWeather.weatherDegree} \nForecast:{daysWeather.forecast}");
         }
         public void DisplayRules()
         {
@@ -65,16 +77,37 @@ namespace LemonadeStand_3DayStarter
         public void PurchasingMenu()
         {
             DisplayAmountOfMoney();
-            DisplayInventory();
+           DisplayInventory();
             Console.WriteLine("Would you like to purchase any items?\n1)Yes\n2)No");
             int choiceToPurchase = Convert.ToInt32(Console.ReadLine());
             while(choiceToPurchase == 1)
             {
+                
                 Console.WriteLine("Type 1 to purchase more Lemons\nType 2 to purchase more Cups\nType 3 to purchase more Ice Cubes\nType 4 to purchase more Sugar Cubes\nType 5 to End Purchases");
                 int choiceOfPurchase = Convert.ToInt32(Console.ReadLine());
-                if(choiceOfPurchase == 5)
+                DisplayAmountOfMoney();
+                DisplayInventory();
+                if (choiceOfPurchase == 5)
                 {
                     break;
+                }
+                else if(choiceOfPurchase == 1)
+                {
+                    Console.WriteLine("Choose a package:");
+                    foreach(string option in lemonPackages)
+                    {
+                        Console.WriteLine(option);
+                    }
+                    string packageOption = Console.ReadLine();
+                    if(packageOption == "1") 
+                    {
+                        newPlayer.wallet.money = -0.88;
+                        for (int i = 0; i < 10; i++)
+                            Lemons.Add(lemon);
+                        Console.WriteLine(Lemons.Count);
+                        Console.ReadLine();
+                    }
+                    
                 }
 
             }

@@ -6,7 +6,38 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand_3DayStarter
 {
+    
     class Weather
     {
+        //Member Variables
+        public Random random = new Random();
+        public List<string> forecasts = new List<string> { "Rain", "Cloudy", "Sunny" };
+        public int weatherDegree;
+        public string forecast;
+        
+
+        //Constructor
+
+        public Weather()
+        {
+
+            weatherDegree = random.Next(65, 100);
+
+            int index = random.Next(forecasts.Count);
+            forecast = forecasts[index];
+
+
+           
+
+        }
+        
+            
+            
+
+
     }
+
+
+        //Member Methods
+    
 }
