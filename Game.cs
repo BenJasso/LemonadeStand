@@ -10,7 +10,11 @@ namespace LemonadeStand_3DayStarter
     {
         //member variables
         public int numberOfDays;
+        public Customer customer = new Customer();
         public List<Day> Days = new List<Day>();
+        public List<Customer> Customers = new List<Customer>();
+        public List<CupOfLemonade> cupsOfLemonade = new List<CupOfLemonade>();
+        public double priceOfLemonade;
 
 
         public Player newPlayer;
@@ -35,13 +39,24 @@ namespace LemonadeStand_3DayStarter
             Console.ReadLine();
             CreatePlayer();
             DecideNumberOfDays();
+            //operation for each day
             for (int i = 1; i <= Days.Count; i++)
             {
                 Weather weather = new Weather();
                 Console.WriteLine($"Day {i} of {numberOfDays}");
                 Console.WriteLine($"\nDegrees:{weather.weatherDegree}\nForecast:{weather.forecast}\n");
                 PurchasingMenu();
+                Console.WriteLine("What would you like to sell your cups of lemonade for today?");
+                priceOfLemonade = Convert.ToDouble(Console.ReadLine());
+                customer.CustomersPurchases(weather, priceOfLemonade, cupsOfLemonade, newPlayer.inventory);
+                newPlayer.addProfit(cupsOfLemonade, priceOfLemonade);
+                newPlayer.deductInventory(cupsOfLemonade, newPlayer.inventory);
+                Console.WriteLine($"Your new balance is:{newPlayer.wallet.money}");
+                Console.WriteLine("\nPress enter to start the next day.");
+                Console.ReadLine();
             }
+            
+
             
            
 
@@ -126,6 +141,9 @@ namespace LemonadeStand_3DayStarter
 
             }
 
+
         }
+
+
     }
 }

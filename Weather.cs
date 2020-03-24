@@ -11,7 +11,7 @@ namespace LemonadeStand_3DayStarter
     {
         //Member Variables
         public Random random = new Random();
-        public List<string> forecasts = new List<string> { "Rain", "Cloudy", "Sunny" };
+        public List<string> forecasts = new List<string> { "Rain", "Sunny" };
         public int weatherDegree;
         public string forecast;
 
