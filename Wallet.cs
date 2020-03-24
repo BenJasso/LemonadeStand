@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand_3DayStarter
 {
-    class Wallet
+     class Wallet
     {
         public double money;
 
@@ -26,6 +26,11 @@ namespace LemonadeStand_3DayStarter
         public void PayMoneyForItems(double transactionAmount)
         {
             money -= transactionAmount;
+        }
+
+        public void DisplayAmountOfMoney()
+        {
+            Console.WriteLine($"Ben you have ${money} and \n");
         }
     }
 }

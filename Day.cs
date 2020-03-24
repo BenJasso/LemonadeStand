@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand_3DayStarter
 {
-    public class Lemon : Item
+    class Day
     {
-        // member variables (HAS A)
+        Weather weather;
         
-        
-        // constructor (SPAWNER)
-        public Lemon()
+
+        public Day()
         {
-            name = "lemon";
+            weather = new Weather();
+            
         }
 
-        // member methods (CAN DO)
-       
+
     }
+
 }

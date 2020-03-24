@@ -6,21 +6,18 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand_3DayStarter
 {
-     class Game
+      class Game
     {
         //member variables
         public int numberOfDays;
-        public Lemon lemon = new Lemon();
-        public Cup cup = new Cup();
-        public CupOfSugar sugarCup = new CupOfSugar();
-        public IceCube iceCube = new IceCube();
+        public List<Day> Days = new List<Day>();
+
+
         public Player newPlayer;
-        public List<Lemon> Lemons = new List<Lemon>();
-        public List<Cup> Cups = new List<Cup>();
-        public List<IceCube> IceCubes = new List<IceCube>();
-        public List<CupOfSugar> SugarCups = new List<CupOfSugar>();
-        public Weather daysWeather = new Weather();
+       
+        
         public int choiceToPurchase = 0;
+        public Store store = new Store();
 
 
 
@@ -38,21 +35,21 @@ namespace LemonadeStand_3DayStarter
             Console.ReadLine();
             CreatePlayer();
             DecideNumberOfDays();
-            PurchasingMenu();
+            for (int i = 1; i <= Days.Count; i++)
+            {
+                Weather weather = new Weather();
+                Console.WriteLine($"Day {i} of {numberOfDays}");
+                Console.WriteLine($"\nDegrees:{weather.weatherDegree}\nForecast:{weather.forecast}\n");
+                PurchasingMenu();
+            }
+            
            
 
 
         }
 
-        public void DayRun()
-        {
-
-        }
-
-        public void DisplayWeather()
-        {
-            Console.WriteLine($"Degrees:{daysWeather.weatherDegree} \nForecast:{daysWeather.forecast}");
-        }
+       
+       
         public void DisplayRules()
         {
             Console.WriteLine("INSTRUCTIONS: \nYour goal is to make as much money as you can in 7, 14, or 30 days by selling lemonade at your lemonade stand. \nBuy cups, lemons, sugar, and ice cubes, then set your recipe based on the weather and conditions.\nStart with the basic recipe, but try to vary the recipe and see if you can do better.\nLastly, set your price and sell your lemonade at the stand. \nTry changing up the price based on the weather conditions as well. \nAt the end of the game, you'll see how much money you made. \nWrite it down and play again to try and beat your score!\n\nPress enter to play!");
@@ -68,31 +65,33 @@ namespace LemonadeStand_3DayStarter
         {
             Console.WriteLine($"{newPlayer.name}, How many days would you like to run your stand for?\nType 7 for 7 days.\nType 14 for 14 days.\nType 30 for 30 days.");
             numberOfDays = Convert.ToInt32(Console.ReadLine());
+            for(int i = 0; i < numberOfDays; i++)
+            {
+                Day day = new Day();
+                Days.Add(day);
+            }
+            
             
             
         }
-        public void DisplayAmountOfMoney()
-        {
-            Console.WriteLine($"Ben you have ${newPlayer.wallet.Money} and \n");
-        }
+      
 
-        public void DisplayInventory()
-        {
-            Console.WriteLine($"Lemons:{Lemons.Count}\nCups:{Cups.Count}\nIce Cubes:{IceCubes.Count}\nSugar Cubes:{SugarCups.Count}");
-        }
+       
 
         public void PurchasingMenu()
         {
-            DisplayWeather();
-            DisplayAmountOfMoney();
-            DisplayInventory();
+            
+           
+           
+            newPlayer.wallet.DisplayAmountOfMoney();
+            newPlayer.inventory.DisplayInventory();
             Console.WriteLine("Would you like to purchase any items?\n1)Yes\n2)No");
             choiceToPurchase = Convert.ToInt32(Console.ReadLine());
             while(choiceToPurchase == 1)
             {
-                DisplayAmountOfMoney();
-                DisplayInventory();
-                Console.WriteLine("Type 1 to purchase more Lemons\nType 2 to purchase more Cups\nType 3 to purchase more Cups of Sugar\nType 4 to purchase more Ice Cubes\nType 5 to End Purchases");
+                newPlayer.wallet.DisplayAmountOfMoney();
+                newPlayer.inventory.DisplayInventory();
+                Console.WriteLine($"Type 1 to purchase more Lemons(price per lemon:${store.pricePerLemon})\nType 2 to purchase more Cups(price per cup:${store.pricePerCup})\nType 3 to purchase more sugar cubes(price per sugar cube:${store.pricePerSugarCube})\nType 4 to purchase more Ice Cubes(price per 10 ice cups:${store.pricePerIceCube})\nType 5 to End Purchases");
                 int choiceOfPurchase = Convert.ToInt32(Console.ReadLine());
 
                 if (choiceOfPurchase == 5)
@@ -102,35 +101,21 @@ namespace LemonadeStand_3DayStarter
                 }
                 else if (choiceOfPurchase == 1)
                 {
-                    int quantityOfItem = UserInterface.GetNumberOfItems("Lemons");
-                    for (int i = 0; i < quantityOfItem; i++)
-                        Lemons.Add(lemon);
-                    newPlayer.wallet.money -= lemon.pricePer * quantityOfItem;
+                    store.SellLemons(newPlayer);
+                    
                 }
                 else if (choiceOfPurchase == 2)
                 {
-                    int quantityOfItem = UserInterface.GetNumberOfItems("Cups");
-                    for (int i = 0; i < quantityOfItem; i++)
-                        Cups.Add(cup);
-                    newPlayer.wallet.money -= cup.pricePer * quantityOfItem;
-
-
+                    store.SellCups(newPlayer);
                 }
                 else if (choiceOfPurchase == 3)
                 {
-                    int quantityOfItem = UserInterface.GetNumberOfItems("cups of sugar");
-                    for (int i = 0; i < quantityOfItem; i++)
-                        SugarCups.Add(sugarCup);
-                    newPlayer.wallet.money -= sugarCup.pricePer * quantityOfItem;
-
+                    store.SellSugarCubes(newPlayer);
 
                 }
                 else if (choiceOfPurchase == 4)
                 {
-                    int quantityOfItem = UserInterface.GetNumberOfItems("ice cubes");
-                    for (int i = 0; i < quantityOfItem; i++)
-                        IceCubes.Add(iceCube);
-                    newPlayer.wallet.money -= iceCube.pricePer * quantityOfItem;
+                    store.SellIceCubes(newPlayer);
                 }
                 else
                 {

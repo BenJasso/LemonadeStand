@@ -9,10 +9,10 @@ namespace LemonadeStand_3DayStarter
     class Store
     {
         // member variables (HAS A)
-        private double pricePerLemon;
-        private double pricePerSugarCube;
-        private double pricePerIceCube;
-        private double pricePerCup;
+        public double pricePerLemon;
+        public double pricePerSugarCube;
+        public double pricePerIceCube;
+        public double pricePerCup;
 
         // constructor (SPAWNER)
         public Store()
@@ -33,6 +33,10 @@ namespace LemonadeStand_3DayStarter
                 player.wallet.PayMoneyForItems(transactionAmount);
                 player.inventory.AddLemonsToInventory(lemonsToPurchase);
             }
+            else
+            {
+                Console.WriteLine("You do not have enough money for this purchase.");
+            }
         }
 
         public void SellSugarCubes(Player player)
@@ -43,6 +47,10 @@ namespace LemonadeStand_3DayStarter
             {
                 PerformTransaction(player.wallet, transactionAmount);
                 player.inventory.AddSugarCubesToInventory(sugarToPurchase);
+            }
+            else
+            {
+                Console.WriteLine("You do not have enough money for this purchase.");
             }
         }
 
@@ -55,6 +63,10 @@ namespace LemonadeStand_3DayStarter
                 PerformTransaction(player.wallet, transactionAmount);
                 player.inventory.AddIceCubesToInventory(iceCubesToPurchase);
             }
+            else
+            {
+                Console.WriteLine("You do not have enough money for this purchase.");
+            }
         }
 
         public void SellCups(Player player)
@@ -65,6 +77,10 @@ namespace LemonadeStand_3DayStarter
             {
                 PerformTransaction(player.wallet, transactionAmount);
                 player.inventory.AddCupsToInventory(cupsToPurchase);
+            }
+            else
+            {
+                Console.WriteLine("You do not have enough money for this purchase.");
             }
         }
 

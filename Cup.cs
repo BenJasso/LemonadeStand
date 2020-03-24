@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand_3DayStarter
 {
-    class Cup : Item
+    public class Cup : Item
     {
         // member variables (HAS A)
-        public double pricePer = 0.03;
+      
 
         // constructor (SPAWNER)
         public Cup()

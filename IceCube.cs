@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand_3DayStarter
 {
-    class IceCube : Item
+    public class IceCube : Item
     {
         // member variables (HAS A)
-        public double pricePer = 0.008;
+       
         // constructor (SPAWNER)
         public IceCube()
         {

@@ -8,9 +8,10 @@ namespace LemonadeStand_3DayStarter
 {
     class Inventory
     {
+
         // member variables (HAS A)
         public List<Lemon> lemons;
-        public List<CupOfSugar> sugarCubes;
+        public List<SugarCube> sugarCubes;
         public List<IceCube> iceCubes;
         public List<Cup> cups;
 
@@ -18,7 +19,7 @@ namespace LemonadeStand_3DayStarter
         public Inventory()
         {
             lemons = new List<Lemon>();
-            sugarCubes = new List<CupOfSugar>();
+            sugarCubes = new List<SugarCube>();
             iceCubes = new List<IceCube>();
             cups = new List<Cup>();
         }
@@ -26,7 +27,7 @@ namespace LemonadeStand_3DayStarter
         // member methods (CAN DO)
         public void AddLemonsToInventory(int numberOfLemons)
         {
-            for(int i = 0; i < numberOfLemons; i++)
+            for (int i = 0; i < numberOfLemons; i++)
             {
                 Lemon lemon = new Lemon();
                 lemons.Add(lemon);
@@ -35,16 +36,16 @@ namespace LemonadeStand_3DayStarter
 
         public void AddSugarCubesToInventory(int numberOfSugarCubes)
         {
-            for(int i = 0; i < numberOfSugarCubes; i++)
+            for (int i = 0; i < numberOfSugarCubes; i++)
             {
-                CupOfSugar sugarCube = new CupOfSugar();
+                SugarCube sugarCube = new SugarCube();
                 sugarCubes.Add(sugarCube);
             }
         }
 
         public void AddIceCubesToInventory(int numberOfIceCubes)
         {
-            for(int i = 0; i < numberOfIceCubes; i++)
+            for (int i = 0; i < numberOfIceCubes; i++)
             {
                 IceCube iceCube = new IceCube();
                 iceCubes.Add(iceCube);
@@ -53,11 +54,17 @@ namespace LemonadeStand_3DayStarter
 
         public void AddCupsToInventory(int numberOfCups)
         {
-            for(int i = 0; i < numberOfCups; i++)
+            for (int i = 0; i < numberOfCups; i++)
             {
                 Cup cup = new Cup();
                 cups.Add(cup);
             }
         }
+
+        public void DisplayInventory()
+        {
+            Console.WriteLine($"Lemons:{lemons.Count}\nCups:{cups.Count}\nIce Cubes:{iceCubes.Count}\nSugar Cubes:{sugarCubes.Count}\n");
+        }
+
     }
 }

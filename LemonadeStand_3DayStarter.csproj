@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Day.cs" />
     <Compile Include="Cup.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="IceCube.cs" />
@@ -53,7 +54,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store.cs" />
-    <Compile Include="CupOfSugar.cs" />
+    <Compile Include="SugarCube.cs" />
     <Compile Include="UserInterface.cs" />
     <Compile Include="Wallet.cs" />
     <Compile Include="Weather.cs" />
