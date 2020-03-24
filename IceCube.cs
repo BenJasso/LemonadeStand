@@ -9,7 +9,7 @@ namespace LemonadeStand_3DayStarter
     class IceCube : Item
     {
         // member variables (HAS A)
-        public double price;
+        public double pricePer = 0.008;
         // constructor (SPAWNER)
         public IceCube()
         {
@@ -17,24 +17,6 @@ namespace LemonadeStand_3DayStarter
         }
 
         // member methods (CAN DO)
-        public void AssignPrice(string quantity)
-        {
-            if (quantity == "100")
-            {
-                price = 0.94;
-            }
-            else if (quantity == "250")
-            {
-                price = 2.22;
-            }
-            else if (quantity == "500")
-            {
-                price = 3.62;
-            }
-            else
-            {
-                Console.WriteLine("Not a valid option.");
-            }
-        }
+        
     }
 }
