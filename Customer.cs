@@ -11,18 +11,21 @@ namespace LemonadeStand_3DayStarter
 
         //member variables
         public int purchasePercentage;
-
+        Random RandomGen;
         //constructor
-
+        public Customer()
+        {
+            RandomGen = new Random();
+        }
 
         //member methods
-        public void CustomersPurchases(Weather weather, double price, List<CupOfLemonade> CupsofLemonade, Inventory inventory)
+        public void CustomersPurchases(Weather weather, double price, List<CupOfLemonade> CupsofLemonade, Inventory inventory, CupOfLemonade cupOfLemonade)
         {
             double lemonsUsed = inventory.lemons.Count;
             double iceCubesUsed = inventory. iceCubes.Count;
             double sugarUsed = inventory.sugarCubes.Count;
             double cupsUsed = inventory.cups.Count;
-            Random RandomGen = new Random();
+            
 
 
                 //determine chances of purchase
@@ -149,23 +152,25 @@ namespace LemonadeStand_3DayStarter
                 }
 
 
+            
+
 
                 for (int i = 1; i < 200; i++)
                 {
-                    while (lemonsUsed > 1 && cupsUsed > 1 && inventory.sugarCubes.Count > 1 && inventory.iceCubes.Count > 3)
-                    {
-                        int randomValueBetween0And99 = RandomGen.Next(100);
-                        CupOfLemonade cupLemonade = new CupOfLemonade();
-                        if (randomValueBetween0And99 < purchasePercentage)
-                        {
-                            lemonsUsed -= cupLemonade.amountOfLemon;
-                            cupsUsed -= cupLemonade.amountOfCups;
-                            sugarUsed -= cupLemonade.amountOfSugar;
-                            iceCubesUsed -= cupLemonade.amountOfIce;
-                            CupsofLemonade.Add(cupLemonade);
 
-                        }
+                    int randomValueBetween0And99 = RandomGen.Next(100);
+                    
+                    if (randomValueBetween0And99 < purchasePercentage && lemonsUsed >= 0.25 && cupsUsed >= 1 && inventory.sugarCubes.Count >= 1 && inventory.iceCubes.Count >= 3)
+                    {
+                        lemonsUsed -= cupOfLemonade.amountOfLemon;
+                        cupsUsed -= cupOfLemonade.amountOfCups;
+                        sugarUsed -= cupOfLemonade.amountOfSugar;
+                        iceCubesUsed -= cupOfLemonade.amountOfIce;
+                        CupsofLemonade.Add(cupOfLemonade);
+
                     }
+
+                
                 }
 
         }

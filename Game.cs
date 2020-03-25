@@ -65,7 +65,7 @@ namespace LemonadeStand_3DayStarter
 
         public void PurchaseProcess(Weather weather)
         {
-            customer.CustomersPurchases(weather, priceOfLemonade, cupsOfLemonade, newPlayer.inventory);
+            customer.CustomersPurchases(weather, priceOfLemonade, cupsOfLemonade, newPlayer.inventory,cupOfLemonade);
             newPlayer.addProfit(cupsOfLemonade, priceOfLemonade);
             newPlayer.deductInventory(cupsOfLemonade, newPlayer.inventory);
         }
