@@ -18,6 +18,7 @@ namespace LemonadeStand_3DayStarter
             public Player newPlayer;
             public string choiceToPurchase;
             public Store store = new Store();
+            public CupOfLemonade cupOfLemonade = new CupOfLemonade();
 
 
 
@@ -38,6 +39,7 @@ namespace LemonadeStand_3DayStarter
                 Console.ReadLine();
                 CreatePlayer();
                 DecideNumberOfDays();
+                cupOfLemonade.MakeRecipe();
                 Console.WriteLine("Press enter to start Day One!");
                 Console.ReadLine();
                 //loop for completing days
