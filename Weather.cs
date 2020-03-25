@@ -20,15 +20,9 @@ namespace LemonadeStand_3DayStarter
 
         public Weather()
         {
-
             weatherDegree = random.Next(65, 100);
-
             int index = random.Next(forecasts.Count);
             forecast = forecasts[index];
-
-
-
-
         }
 
         public void DisplayWeather()

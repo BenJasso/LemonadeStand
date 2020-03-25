@@ -22,12 +22,7 @@ namespace LemonadeStand_3DayStarter
             double iceCubesUsed = inventory. iceCubes.Count;
             double sugarUsed = inventory.sugarCubes.Count;
             double cupsUsed = inventory.cups.Count;
-
-            
-            
-
-
-                Random RandomGen = new Random();
+            Random RandomGen = new Random();
 
 
                 //determine chances of purchase
@@ -68,7 +63,7 @@ namespace LemonadeStand_3DayStarter
                         }
                         else
                         {
-                            purchasePercentage = 15;
+                            purchasePercentage = 3;
                         }
                     }
                     else
@@ -87,11 +82,11 @@ namespace LemonadeStand_3DayStarter
                         }
                         else
                         {
-                            purchasePercentage = 15;
+                            purchasePercentage = 3;
                         }
                     }
-
                 }
+                
                 if (weather.forecast == "Rain")
                 {
                     if (weather.weatherDegree >= 80)
@@ -110,7 +105,7 @@ namespace LemonadeStand_3DayStarter
                         }
                         else
                         {
-                            purchasePercentage = 15;
+                            purchasePercentage = 3;
                         }
                     }
                     else if (weather.weatherDegree < 80 && weather.weatherDegree >= 70)
@@ -129,7 +124,7 @@ namespace LemonadeStand_3DayStarter
                         }
                         else
                         {
-                            purchasePercentage = 15;
+                            purchasePercentage = 3;
                         }
                     }
                     else
@@ -151,18 +146,14 @@ namespace LemonadeStand_3DayStarter
                             purchasePercentage = 5;
                         }
                     }
-
                 }
 
 
 
                 for (int i = 1; i < 200; i++)
                 {
-
-
                     while (lemonsUsed > 1 && cupsUsed > 1 && inventory.sugarCubes.Count > 1 && inventory.iceCubes.Count > 3)
                     {
-
                         int randomValueBetween0And99 = RandomGen.Next(100);
                         CupOfLemonade cupLemonade = new CupOfLemonade();
                         if (randomValueBetween0And99 < purchasePercentage)
@@ -171,7 +162,6 @@ namespace LemonadeStand_3DayStarter
                             cupsUsed -= cupLemonade.amountOfCups;
                             sugarUsed -= cupLemonade.amountOfSugar;
                             iceCubesUsed -= cupLemonade.amountOfIce;
-
                             CupsofLemonade.Add(cupLemonade);
 
                         }
