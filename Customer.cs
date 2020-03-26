@@ -12,6 +12,7 @@ namespace LemonadeStand_3DayStarter
         //member variables
         public int purchasePercentage;
         Random RandomGen;
+
         //constructor
         public Customer()
         {
@@ -160,7 +161,7 @@ namespace LemonadeStand_3DayStarter
 
                     int randomValueBetween0And99 = RandomGen.Next(100);
                     
-                    if (randomValueBetween0And99 < purchasePercentage && lemonsUsed >= 0.25 && cupsUsed >= 1 && inventory.sugarCubes.Count >= 1 && inventory.iceCubes.Count >= 3)
+                    if (randomValueBetween0And99 < purchasePercentage && lemonsUsed >= cupOfLemonade.amountOfLemon && cupsUsed >= 1 && inventory.sugarCubes.Count >= cupOfLemonade.amountOfSugar && inventory.iceCubes.Count >= cupOfLemonade.amountOfIce)
                     {
                         lemonsUsed -= cupOfLemonade.amountOfLemon;
                         cupsUsed -= cupOfLemonade.amountOfCups;

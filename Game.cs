@@ -9,25 +9,22 @@ namespace LemonadeStand_3DayStarter
       class Game
     {
        //member variables
-            public int numberOfDays;
-            public Customer customer = new Customer();
-            public List<Day> Days = new List<Day>();
-            public List<Customer> Customers = new List<Customer>();
-            public List<CupOfLemonade> cupsOfLemonade = new List<CupOfLemonade>();
-            public double priceOfLemonade;
-            public Player newPlayer;
-            public string choiceToPurchase;
-            public Store store = new Store();
-            public CupOfLemonade cupOfLemonade = new CupOfLemonade();
+             int numberOfDays;
+             Customer customer = new Customer();
+             List<Day> Days = new List<Day>();
+             List<Customer> Customers = new List<Customer>();
+             List<CupOfLemonade> cupsOfLemonade = new List<CupOfLemonade>();
+             double priceOfLemonade;
+             Player newPlayer;
+             string choiceToPurchase;
+             Store store = new Store();
+             CupOfLemonade cupOfLemonade = new CupOfLemonade();
 
 
 
 
        //constructor
-            public Game()
-            {
-             
-            }
+            
 
        //member methods
 
@@ -55,19 +52,56 @@ namespace LemonadeStand_3DayStarter
                     DecidePriceOfLemonade();
                     PurchaseProcess(weather);
                     Console.WriteLine($"Your new balance is:{newPlayer.wallet.money}");
+                    choiceToPurchase = null;
                     Console.WriteLine("\nPress enter to start the next day.");
                     Console.ReadLine();
                 }
-                //after days are complete
+            //after days are complete
+            Console.WriteLine($"After {numberOfDays} days you made a total of ${newPlayer.wallet.money}!");
+            Console.ReadLine();
+
+            
+            }
+
+           public void deductInventory()
+
+           {
+           
+            double TotalLemonsUsed = Math.Round((cupOfLemonade.amountOfLemon * cupsOfLemonade.Count), 0);
+            double TotalCupsUsed = Math.Round((cupOfLemonade.amountOfCups * cupsOfLemonade.Count), 0);
+            double TotalSugarUsed = Math.Round((cupOfLemonade.amountOfSugar * cupsOfLemonade.Count), 0);
+            double TotalIceUsed = Math.Round((cupOfLemonade.amountOfIce * cupsOfLemonade.Count), 0);
+
+            for (int i = 0; i < TotalLemonsUsed; i++)
+            {
+                if (newPlayer.inventory.lemons.Count > 0)
+                    newPlayer.inventory.lemons.RemoveAt(0);
+            }
+            for (int i = 0; i < TotalCupsUsed; i++)
+            {
+                if (newPlayer.inventory.cups.Count > 0)
+                    newPlayer.inventory.cups.RemoveAt(0);
+            }
+            for (int i = 0; i < TotalSugarUsed; i++)
+            {
+                if (newPlayer.inventory.sugarCubes.Count > 0)
+                    newPlayer.inventory.sugarCubes.RemoveAt(0);
+            }
+            for (int i = 0; i < 1000; i++)
+            {
+                if (newPlayer.inventory.iceCubes.Count > 0)
+                    newPlayer.inventory.iceCubes.RemoveAt(0);
             }
 
 
+        }
 
         public void PurchaseProcess(Weather weather)
         {
             customer.CustomersPurchases(weather, priceOfLemonade, cupsOfLemonade, newPlayer.inventory,cupOfLemonade);
             newPlayer.addProfit(cupsOfLemonade, priceOfLemonade);
-            newPlayer.deductInventory(cupsOfLemonade, newPlayer.inventory);
+            deductInventory();
+            cupsOfLemonade = new List<CupOfLemonade>();
         }
 
             public void DecidePriceOfLemonade()
@@ -134,10 +168,10 @@ namespace LemonadeStand_3DayStarter
             {
                 while(choiceToPurchase == "1")
                 {
-                    newPlayer.wallet.DisplayAmountOfMoney();
-                    newPlayer.inventory.DisplayInventory();
 
-                    Console.WriteLine($"Type 1 to purchase more Lemons(price per lemon:${store.pricePerLemon})\nType 2 to purchase more Cups(price per cup:${store.pricePerCup})\nType 3 to purchase more sugar cubes(price per sugar cube:${store.pricePerSugarCube})\nType 4 to purchase more Ice Cubes(price per 10 ice cups:${store.pricePerIceCube})\nType 5 to End Purchases");
+                newPlayer.wallet.DisplayAmountOfMoney();
+                newPlayer.inventory.DisplayInventory();
+                Console.WriteLine($"Type 1 to purchase more Lemons(price per lemon:${store.pricePerLemon})\nType 2 to purchase more Cups(price per cup:${store.pricePerCup})\nType 3 to purchase more sugar cubes(price per sugar cube:${store.pricePerSugarCube})\nType 4 to purchase more Ice Cubes(price per 10 ice cups:${store.pricePerIceCube})\nType 5 to End Purchases");
                     string userInput = Console.ReadLine();
                 
                         if (userInput == "1" || userInput == "2" || userInput == "3" || userInput == "4" || userInput == "5")
