@@ -14,6 +14,8 @@ namespace LemonadeStand_3DayStarter
         public List<SugarCube> sugarCubes;
         public List<IceCube> iceCubes;
         public List<Cup> cups;
+        public double lemonsUsedCounter;
+       
 
         // constructor (SPAWNER)
         public Inventory()

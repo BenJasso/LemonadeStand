@@ -13,6 +13,7 @@ namespace LemonadeStand_3DayStarter
         public int purchasePercentage;
         Random RandomGen;
 
+
         //constructor
         public Customer()
         {
@@ -20,17 +21,13 @@ namespace LemonadeStand_3DayStarter
         }
 
         //member methods
-        public void CustomersPurchases(Weather weather, double price, List<CupOfLemonade> CupsofLemonade, Inventory inventory, CupOfLemonade cupOfLemonade)
+        public void CustomersPurchases(Weather weather, double price, List<CupOfLemonade> CupsofLemonade, Inventory inventory, CupOfLemonade cupOfLemonade, Customer customer, bool decision)
         {
-            double lemonsUsed = inventory.lemons.Count;
-            double iceCubesUsed = inventory. iceCubes.Count;
-            double sugarUsed = inventory.sugarCubes.Count;
-            double cupsUsed = inventory.cups.Count;
+            int randomValueBetween0And99 = customer.RandomGen.Next(100);
             
-
-
-                //determine chances of purchase
-                if (weather.forecast == "Sunny")
+            
+            //determine chances of purchase
+            if (weather.forecast == "Sunny")
                 {
                     if (weather.weatherDegree >= 80)
                     {
@@ -151,28 +148,35 @@ namespace LemonadeStand_3DayStarter
                         }
                     }
                 }
+            if (randomValueBetween0And99 < purchasePercentage && inventory.lemons.Count >= cupOfLemonade.amountOfLemon && inventory.sugarCubes.Count >= cupOfLemonade.amountOfSugar && inventory.cups.Count >= 1 && inventory.iceCubes.Count >= cupOfLemonade.amountOfIce)
+            {
+                CupsofLemonade.Add(cupOfLemonade);
+                decision = true;
 
-
-            
-
-
-                for (int i = 1; i < 200; i++)
+            }
+            if (decision == true)
+            {
+                inventory.lemonsUsedCounter += cupOfLemonade.amountOfLemon;
+                if(inventory.lemonsUsedCounter >= 1)
                 {
-
-                    int randomValueBetween0And99 = RandomGen.Next(100);
-                    
-                    if (randomValueBetween0And99 < purchasePercentage && lemonsUsed >= cupOfLemonade.amountOfLemon && cupsUsed >= 1 && inventory.sugarCubes.Count >= cupOfLemonade.amountOfSugar && inventory.iceCubes.Count >= cupOfLemonade.amountOfIce)
-                    {
-                        lemonsUsed -= cupOfLemonade.amountOfLemon;
-                        cupsUsed -= cupOfLemonade.amountOfCups;
-                        sugarUsed -= cupOfLemonade.amountOfSugar;
-                        iceCubesUsed -= cupOfLemonade.amountOfIce;
-                        CupsofLemonade.Add(cupOfLemonade);
-
-                    }
-
-                
+                    inventory.lemons.RemoveAt(0);
+                    inventory.lemonsUsedCounter -= 1;
                 }
+                for (int i = 0; i < cupOfLemonade.amountOfIce; i++)
+                {
+                    inventory.iceCubes.RemoveAt(0);
+                }
+                for (int i = 0; i < cupOfLemonade.amountOfSugar; i++)
+                {
+                    inventory.sugarCubes.RemoveAt(0);
+                }
+                inventory.cups.RemoveAt(0);
+            }
+
+
+
+
+
 
         }
 

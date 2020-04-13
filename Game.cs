@@ -10,21 +10,29 @@ namespace LemonadeStand_3DayStarter
     {
        //member variables
              int numberOfDays;
-             Customer customer = new Customer();
-             List<Day> Days = new List<Day>();
-             List<Customer> Customers = new List<Customer>();
-             List<CupOfLemonade> cupsOfLemonade = new List<CupOfLemonade>();
+             Customer customer;
+             List<Day> Days;
+             List<Customer> Customers;
+             List<CupOfLemonade> cupsOfLemonade;
              double priceOfLemonade;
              Player newPlayer;
              string choiceToPurchase;
-             Store store = new Store();
-             CupOfLemonade cupOfLemonade = new CupOfLemonade();
+             Store store;
+             CupOfLemonade cupOfLemonade;
 
 
 
 
-       //constructor
-            
+        //constructor
+        public Game()
+        {
+            customer = new Customer();
+            Customers = new List<Customer>();
+            Days = new List<Day>();
+            cupsOfLemonade = new List<CupOfLemonade>();
+            store = new Store();
+            cupOfLemonade = new CupOfLemonade();
+        }
 
        //member methods
 
@@ -42,6 +50,7 @@ namespace LemonadeStand_3DayStarter
                 //loop for completing days
                 for (int i = 1; i <= Days.Count; i++)
                 {
+                    CreateCustomers();
                     Weather weather = new Weather();
                     Console.WriteLine($"Day {i} of {numberOfDays}");
                     Console.WriteLine($"\nDegrees:{weather.weatherDegree}\nForecast:{weather.forecast}\n");
@@ -50,9 +59,12 @@ namespace LemonadeStand_3DayStarter
                     ChoiceToPurchase();
                     DecideWhatToBuy();
                     DecidePriceOfLemonade();
-                    PurchaseProcess(weather);
+                    EachCustomerPurchase(weather, newPlayer.inventory);
+                    newPlayer.addProfit(cupsOfLemonade, priceOfLemonade);
                     Console.WriteLine($"Your new balance is:{newPlayer.wallet.money}");
                     choiceToPurchase = null;
+                    newPlayer.inventory.iceCubes.Clear();
+
                     Console.WriteLine("\nPress enter to start the next day.");
                     Console.ReadLine();
                 }
@@ -63,66 +75,43 @@ namespace LemonadeStand_3DayStarter
             
             }
 
-           public void deductInventory()
 
-           {
-           
-            double TotalLemonsUsed = Math.Round((cupOfLemonade.amountOfLemon * cupsOfLemonade.Count), 0);
-            double TotalCupsUsed = Math.Round((cupOfLemonade.amountOfCups * cupsOfLemonade.Count), 0);
-            double TotalSugarUsed = Math.Round((cupOfLemonade.amountOfSugar * cupsOfLemonade.Count), 0);
-            double TotalIceUsed = Math.Round((cupOfLemonade.amountOfIce * cupsOfLemonade.Count), 0);
 
-            for (int i = 0; i < TotalLemonsUsed; i++)
+
+
+
+
+        
+            public void EachCustomerPurchase(Weather weather, Inventory inventory)
             {
-                if (newPlayer.inventory.lemons.Count > 0)
-                    newPlayer.inventory.lemons.RemoveAt(0);
-            }
-            for (int i = 0; i < TotalCupsUsed; i++)
-            {
-                if (newPlayer.inventory.cups.Count > 0)
-                    newPlayer.inventory.cups.RemoveAt(0);
-            }
-            for (int i = 0; i < TotalSugarUsed; i++)
-            {
-                if (newPlayer.inventory.sugarCubes.Count > 0)
-                    newPlayer.inventory.sugarCubes.RemoveAt(0);
-            }
-            for (int i = 0; i < 1000; i++)
-            {
-                if (newPlayer.inventory.iceCubes.Count > 0)
-                    newPlayer.inventory.iceCubes.RemoveAt(0);
+                for (int i = 0; i < Customers.Count; i++)
+                {
+                    bool purchase = false;
+                    Customers[i].CustomersPurchases(weather, priceOfLemonade, cupsOfLemonade, newPlayer.inventory, cupOfLemonade, customer, purchase);
+                }
             }
 
 
-        }
 
-        public void PurchaseProcess(Weather weather)
-        {
-            customer.CustomersPurchases(weather, priceOfLemonade, cupsOfLemonade, newPlayer.inventory,cupOfLemonade);
-            newPlayer.addProfit(cupsOfLemonade, priceOfLemonade);
-            deductInventory();
-            cupsOfLemonade = new List<CupOfLemonade>();
-        }
-
-            public void DecidePriceOfLemonade()
+            public void DecidePriceOfLemonade()//used single responsibility principle - i used this method so i can keep my functions simple and only for one purpose. that way if i needed to use it again elsewhere i could.
             {
                 Console.WriteLine("What would you like to sell your cups of lemonade for today?");
                 priceOfLemonade = Convert.ToDouble(Console.ReadLine());
             }
-            public void DisplayRules()
+            public void DisplayRules()//used single responsibility principle
             {
                 Console.WriteLine("INSTRUCTIONS: \nYour goal is to make as much money as you can in 7, 14, or 30 days by selling lemonade at your lemonade stand. \nBuy cups, lemons, sugar, and ice cubes, then set your recipe based on the weather and conditions.\nStart with the basic recipe, but try to vary the recipe and see if you can do better.\nLastly, set your price and sell your lemonade at the stand. \nTry changing up the price based on the weather conditions as well. \nAt the end of the game, you'll see how much money you made. \nWrite it down and play again to try and beat your score!\n\nPress enter to play!");
             }
 
         
-            public void CreatePlayer()
+            public void CreatePlayer()//used single responsibility principle
             {
                 Console.WriteLine("Player, enter your name:");
                 newPlayer = new Player(Console.ReadLine());
             }
 
         
-            public void DecideNumberOfDays()
+            public void DecideNumberOfDays()//used single responsibility principle
             {
                 while (numberOfDays != 7 && numberOfDays != 14 && numberOfDays != 30)
                 {
@@ -147,7 +136,7 @@ namespace LemonadeStand_3DayStarter
             }
 
 
-            public void ChoiceToPurchase()
+            public void ChoiceToPurchase()//used single responsibility principle
             {
                 while (choiceToPurchase != "1" && choiceToPurchase != "2")
                 {
@@ -198,17 +187,25 @@ namespace LemonadeStand_3DayStarter
                             {
                                 store.SellIceCubes(newPlayer);
                             }
-
                         }
-
                         else
                         {
                             Console.WriteLine("Not a valid option.");
                         }
                 }
             }
+
+            public void CreateCustomers()
+            {
+                for (int i = 0; i < 200; i++)
+                {
+                    Customer customer = new Customer();
+                    Customers.Add(customer);
+                }
+            }
+
                 
             
         
-          }
+      }
 }
